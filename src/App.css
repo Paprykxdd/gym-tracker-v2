@@ -1,38 +1,139 @@
-.App {
+/* App.css - Dark Mode */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  margin: 0;
+}
+
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+h1 {
   text-align: center;
+  color: #bb86fc; /* Light purple accent */
+  margin-bottom: 30px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Dark Form Styling */
+.workout-form {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: flex-end;
+  border: 1px solid #333;
+  margin-bottom: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.input-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex: 1;
+  min-width: 120px;
+}
+
+label {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #b0b0b0;
+}
+
+input {
+  padding: 10px;
+  background-color: #2d2d2d;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: white;
+  outline: none;
+}
+
+input:focus {
+  border-color: #bb86fc;
+}
+
+/* Buttons */
+.submit-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  height: 40px;
+  color: #000;
+  transition: opacity 0.2s;
+}
+
+.btn-add {
+  background-color: #03dac6; /* Teal */
+}
+
+.btn-update {
+  background-color: #ffb74d; /* Orange */
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+th {
+  background-color: #2c2c2c;
+  color: #bb86fc;
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #252525;
+}
+
+/* Action Buttons */
+.action-btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.edit-btn {
+  background-color: #4a90e2;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.delete-btn {
+  background-color: #cf6679;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.no-data {
+  text-align: center;
+  color: #777;
+  padding: 20px;
 }
