@@ -15,6 +15,7 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" href="manifest.json">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -40,4 +41,24 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+  // 1. SELECT all your input fields
+  // (Assuming your inputs have unique IDs like id="bench-weight", id="bench-reps")
+  const inputs = document.querySelectorAll('input');
+
+  // 2. LOAD saved data when the app opens
+  inputs.forEach(input => {
+    // Check if we have saved data for this specific input ID
+    const savedValue = localStorage.getItem(input.id);
+    if (savedValue) {
+      input.value = savedValue; // Put the text back in the box
+    }
+
+    // 3. LISTEN for typing (Save on every keystroke)
+    input.addEventListener('input', (e) => {
+      // Save the text to the phone's hard drive
+      localStorage.setItem(e.target.id, e.target.value);
+    });
+  });
+</script>
 </html>
