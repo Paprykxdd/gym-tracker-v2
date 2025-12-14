@@ -8,15 +8,16 @@ function App() {
     return savedWorkouts ? JSON.parse(savedWorkouts) : [];
   });
 
-  // 2. Form State
+  // 2. Form State (ADDED: weight)
   const [formData, setFormData] = useState({
     date: '',
     exercise: '',
+    weight: '', // <--- NEW FIELD
     sets: '',
     reps: ''
   });
 
-  // 3. Edit Mode State (New!)
+  // 3. Edit Mode State
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
 
@@ -29,22 +30,21 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 5. Handle Submit (Updated for Edit logic)
+  // 5. Handle Submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isEditing) {
-      // UPDATE LOGIC: Find the item by ID and replace it
+      // UPDATE LOGIC
       const updatedWorkouts = workouts.map((workout) => 
         workout.id === currentId ? { ...formData, id: currentId } : workout
       );
       setWorkouts(updatedWorkouts);
       
-      // Reset Edit Mode
       setIsEditing(false);
       setCurrentId(null);
     } else {
-      // ADD LOGIC: Create new
+      // ADD LOGIC
       const newWorkout = {
         id: Date.now(),
         ...formData
@@ -52,18 +52,19 @@ function App() {
       setWorkouts([newWorkout, ...workouts]);
     }
 
-    // Clear form
-    setFormData({ date: '', exercise: '', sets: '', reps: '' });
+    // Clear form (ADDED: weight)
+    setFormData({ date: '', exercise: '', weight: '', sets: '', reps: '' });
   };
 
-  // 6. Handle Edit Click (New!)
+  // 6. Handle Edit Click
   const handleEdit = (workout) => {
     setIsEditing(true);
     setCurrentId(workout.id);
-    // Populate the form fields with the data we want to edit
+    // Populate form (ADDED: weight)
     setFormData({
       date: workout.date,
       exercise: workout.exercise,
+      weight: workout.weight, // <--- Load weight when editing
       sets: workout.sets,
       reps: workout.reps
     });
@@ -90,6 +91,21 @@ function App() {
           <input type="text" name="exercise" placeholder="Bench Press" value={formData.exercise} onChange={handleChange} required />
         </div>
 
+        {/* --- NEW WEIGHT INPUT --- */}
+        <div className="input-group">
+          <label>Weight (kg)</label>
+          <input 
+            type="number" 
+            name="weight" 
+            placeholder="0" 
+            value={formData.weight} 
+            onChange={handleChange} 
+            required 
+            inputMode="decimal" // Makes mobile number pad appear
+          />
+        </div>
+        {/* ------------------------ */}
+
         <div className="input-group">
           <label>Sets</label>
           <input type="number" name="sets" placeholder="0" value={formData.sets} onChange={handleChange} required />
@@ -100,7 +116,6 @@ function App() {
           <input type="number" name="reps" placeholder="0" value={formData.reps} onChange={handleChange} required />
         </div>
 
-        {/* Button changes color/text based on mode */}
         <button 
           type="submit" 
           className={`submit-btn ${isEditing ? 'btn-update' : 'btn-add'}`}
@@ -117,6 +132,7 @@ function App() {
               <tr>
                 <th>Date</th>
                 <th>Exercise</th>
+                <th>Weight</th> {/* <--- NEW COLUMN */}
                 <th>Sets</th>
                 <th>Reps</th>
                 <th>Actions</th>
@@ -127,10 +143,10 @@ function App() {
                 <tr key={workout.id}>
                   <td>{workout.date}</td>
                   <td>{workout.exercise}</td>
+                  <td>{workout.weight} kg</td> {/* <--- NEW DATA */}
                   <td>{workout.sets}</td>
                   <td>{workout.reps}</td>
                   <td>
-                    {/* New Edit Button */}
                     <button 
                       onClick={() => handleEdit(workout)} 
                       className="action-btn edit-btn"
